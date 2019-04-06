@@ -213,7 +213,24 @@
                 </div>
             </div>
         </section>
-
+				<section id="photography" class="home-section">
+					<div class="container">
+						<h1 class="home-section-heading">photography<span class="emoji">&#x1F4D6;</span></h1>
+						<div class="row">
+							<div class="img-col col-md-6">
+								<img class="grid-item-preview" src="img/photos/1.jpg" width="100%" style="padding-top:2rem; padding-bottom:2rem;" alt="">
+							</div>
+							<div class="img-col col-md-3">
+								<img class="grid-item-preview" src="img/photos/2.jpg" width="100%" style="padding-top:2rem; padding-bottom:2rem;" alt="">
+								<img class="grid-item-preview" src="img/photos/3.jpg" style="padding-top:2rem; padding-bottom:2rem;" width="100%" alt="">
+							</div>
+							<div class="img-col col-md-3">
+								<img class="grid-item-preview" src="img/photos/4.jpg" style="padding-top:2rem; padding-bottom:2rem;" width="100%" alt="">
+								<img class="grid-item-preview" src="img/photos/5.jpg" style="padding-top:2rem; padding-bottom:2rem;" width="100%" alt="">
+							</div>
+						</div>
+					</div>
+				</section>
         <section id="press" class="home-section">
             <div class="container">
                 <h1 class="home-section-heading">Essays<span class="emoji">&#x1F4D6;</span></h1>
@@ -300,91 +317,90 @@
 		<p>&copy; 2018 <a href="https://sidhantbhavnani.com/">Sidhant Bhavnani</a></p>
 	</footer>
 
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129346686-1"></script>
 	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
 
-	  gtag('config', 'UA-64308952-1');
-	</script>
-<script>
-var c = document.getElementById("canvas");
-var WDT = (c.width = window.innerWidth);
-var HGT = (c.height = window.innerHeight);
-var ctx = c.getContext("2d");
-var SZ = 8;
-var xMax = Math.floor(WDT / SZ);
-var yMax = Math.floor(HGT / SZ);
-var matrix, matrixTmp;
+		  gtag('config', 'UA-64308952-1');
+		</script>
+	<script>
+	var c = document.getElementById("canvas");
+	var WDT = (c.width = window.innerWidth);
+	var HGT = (c.height = window.innerHeight);
+	var ctx = c.getContext("2d");
+	var SZ = 8;
+	var xMax = Math.floor(WDT / SZ);
+	var yMax = Math.floor(HGT / SZ);
+	var matrix, matrixTmp;
 
-function resetMatrixTmp() {
-for (var xVal = 0; xVal < xMax + 1; xVal++) {
-	matrixTmp[xVal] = [];
-	for (var yVal = 0; yVal < yMax + 1; yVal++) {
-		matrixTmp[xVal][yVal] = 0;
-	}
-}
-}
-function initMatrix() {
-matrix = [];
-matrixTmp = [];
-
-for (var xVal = 0; xVal < xMax + 1; xVal++) {
-	matrix[xVal] = [];
-	matrixTmp[xVal] = [];
-	for (var yVal = 0; yVal < yMax + 1; yVal++) {
-		matrixTmp[xVal][yVal] = 0;
-		var rand = Math.floor(Math.random() * 2);
-		matrix[xVal][yVal] = rand;
-		if (rand == 1) {
-			draw(xVal, yVal);
+	function resetMatrixTmp() {
+	for (var xVal = 0; xVal < xMax + 1; xVal++) {
+		matrixTmp[xVal] = [];
+		for (var yVal = 0; yVal < yMax + 1; yVal++) {
+			matrixTmp[xVal][yVal] = 0;
 		}
 	}
-}
-}
-function draw(x, y) {
-ctx.fillRect(SZ * x, SZ * y, SZ, SZ);
-}
-function nextStep() {
-resetMatrixTmp();
+	}
+	function initMatrix() {
+	matrix = [];
+	matrixTmp = [];
 
-ctx.fillStyle = "#f8f8f8";
-ctx.fillRect(0, 0, WDT, HGT);
-
-for (var xVal = 1; xVal < xMax; xVal++) {
-	for (var yVal = 1; yVal < yMax; yVal++) {
-		var neighborSum =
-			matrix[xVal][yVal - 1] +
-			matrix[xVal][yVal + 1] +
-			matrix[xVal - 1][yVal] +
-			matrix[xVal - 1][yVal - 1] +
-			matrix[xVal - 1][yVal + 1] +
-			matrix[xVal + 1][yVal] +
-			matrix[xVal + 1][yVal - 1] +
-			matrix[xVal + 1][yVal + 1];
-
-		ctx.fillStyle = "#F5F5F5";
-
-		if (matrix[xVal][yVal] == 0) {
-			if (neighborSum == 3) {
-				matrixTmp[xVal][yVal] = 1;
-				draw(xVal, yVal);
-			}
-		} else if (matrix[xVal][yVal] == 1) {
-			if (neighborSum == 2 || neighborSum == 3) {
-				matrixTmp[xVal][yVal] = 1;
+	for (var xVal = 0; xVal < xMax + 1; xVal++) {
+		matrix[xVal] = [];
+		matrixTmp[xVal] = [];
+		for (var yVal = 0; yVal < yMax + 1; yVal++) {
+			matrixTmp[xVal][yVal] = 0;
+			var rand = Math.floor(Math.random() * 2);
+			matrix[xVal][yVal] = rand;
+			if (rand == 1) {
 				draw(xVal, yVal);
 			}
 		}
 	}
-}
+	}
+	function draw(x, y) {
+	ctx.fillRect(SZ * x, SZ * y, SZ, SZ);
+	}
+	function nextStep() {
+	resetMatrixTmp();
 
-matrix = matrixTmp.slice();
-}
+	ctx.fillStyle = "#f8f8f8";
+	ctx.fillRect(0, 0, WDT, HGT);
 
-initMatrix();
-setInterval(nextStep, 150);
+	for (var xVal = 1; xVal < xMax; xVal++) {
+		for (var yVal = 1; yVal < yMax; yVal++) {
+			var neighborSum =
+				matrix[xVal][yVal - 1] +
+				matrix[xVal][yVal + 1] +
+				matrix[xVal - 1][yVal] +
+				matrix[xVal - 1][yVal - 1] +
+				matrix[xVal - 1][yVal + 1] +
+				matrix[xVal + 1][yVal] +
+				matrix[xVal + 1][yVal - 1] +
+				matrix[xVal + 1][yVal + 1];
+
+			ctx.fillStyle = "#F4F4F4";
+
+			if (matrix[xVal][yVal] == 0) {
+				if (neighborSum == 3) {
+					matrixTmp[xVal][yVal] = 1;
+					draw(xVal, yVal);
+				}
+			} else if (matrix[xVal][yVal] == 1) {
+				if (neighborSum == 2 || neighborSum == 3) {
+					matrixTmp[xVal][yVal] = 1;
+					draw(xVal, yVal);
+				}
+			}
+		}
+	}
+
+	matrix = matrixTmp.slice();
+	}
+
+	initMatrix();
+	setInterval(nextStep, 150);
 
 </script>
 </body>
